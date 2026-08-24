@@ -40,13 +40,12 @@ aerOS/
 7. Continue into aerOS.
 ## Customization
 ### Wallpapers:
-in progress
-Replace:
+in progress(more coming soon)
+currently:
 ```
 1.jpg
 2.jpg
 ```
-with your own wallpapers while keeping the filenames the same.
 
 it would be better if you used 1 as light and 2 as dark it would look nice
 
