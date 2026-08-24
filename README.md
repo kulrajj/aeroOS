@@ -42,17 +42,24 @@ aerOS/
 ### Wallpapers:
 in progress
 Replace:
+```
 1.jpg
 2.jpg
+```
 with your own wallpapers while keeping the filenames the same.
+
 it would be better if you used 1 as light and 2 as dark it would look nice
+
 ## Technologies
 * HTML
 * CSS
 * JavaScript
 ## Credits
 (https://frutigeraeroarchive.org/ for wallpapers and other stuff
+
 https://makeaero.com/ for making dialog boxes
+
 https://in.pinterest.com/pin/632966922651119620/ for gears icon on dialog box)
+
 ## License
 This project is for personal and educational use.
