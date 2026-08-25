@@ -2,31 +2,193 @@
 <head>
     <title>aeroOS</title>
     <style>
+        /* this is for the taskbar deigne by me*/
+        #taskbar{
+            position: fixed;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 50px;
+            min-width: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.38), rgba(180,225,245,0.18) 45%, rgba(30,110,150,0.20));
+            border: 1px solid rgba(255,255,255,0.65);
+            box-shadow:0 10px 30px rgba(0,0,0,0.35),0 0 20px rgba(80,210,255,0.20),inset 0 1px 2px rgba(255,255,255,0.85),inset 0 -1px 2px rgba(0,50,80,0.25);
+            backdrop-filter: blue(18px) saturate(1.7);
+            -webkit-backdrop-filter: blur(18px) saturate(1.7);
+            z-index: 50;
+            font-family: "Segoue-UI",'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            #taskbar::before {
+                content: "";
+
+                position: absolute;
+                inset: 0;
+
+                border-radius: inherit;
+
+                background:
+                    linear-gradient(
+                        110deg,
+                        transparent 20%,
+                        rgba(255,255,255,0.08) 35%,
+                        rgba(255,255,255,0.42) 48%,
+                        rgba(255,255,255,0.10) 58%,
+                        transparent 72%
+                    );
+
+                pointer-events: none;
+            }
+        }
+        /*taskbar ending here*/
+                .button-group {
+            display: flex;
+            flex-direction: row;
+            gap: 8px;
+            align-items: center;
+        }
+        .frutiger-aero-button {
+            --hue: 140;
+            --sat: 0.02;
+            --glow-intensity: 1;
+
+            --fg: oklch(15% calc(var(--sat) * 0.5) var(--hue));
+            --bg: oklch(75% var(--sat) var(--hue) / 0.8);
+            --bg-dark: oklch(45% var(--sat) var(--hue) / 0.75);
+
+            --bottom-glow: radial-gradient(
+                farthest-corner at bottom center,
+                rgba(255, 255, 255, var(--glow-intensity)),
+                transparent
+            );
+            position: relative;
+            background-color: var(--bg);
+            background:
+                var(--bottom-glow),
+                linear-gradient(
+                    to bottom,
+                    var(--bg-dark),
+                    var(--bg)
+                );
+            border: 1px solid var(--bg);
+            border-radius: 14px;
+            box-shadow:
+                0 4px 4px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(255,255,255,0.8);
+            color: var(--fg);
+            font-family:
+                "Myriad Pro",
+                "Myriad",
+                "Helvetica Neue",
+                Helvetica,
+                Arial,
+                sans-serif;
+            font-weight: 700;
+            text-shadow:
+                0 2px 0.5em rgba(0, 0, 0, 0.2);
+            cursor: url("./cursors/roundyhand.cur"), pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            transition:
+                transform 150ms ease,
+                box-shadow 150ms ease,
+                filter 150ms ease;
+        }
+        .frutiger-aero-button::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(
+                    120deg,
+                    transparent 30%,
+                    rgba(255,255,255,0.35) 45%,
+                    rgba(255,255,255,0.05) 55%,
+                    transparent 70%
+                );
+            border-radius: inherit;
+            pointer-events: none;
+        }
+            .frutiger-aero-button::after {
+            content: "";
+            position: absolute;
+            top: 4%;
+            left: 0.75em;
+            width: calc(100% - 1.5em);
+            height: 40%;
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(255,255,255,0.8),
+                    rgba(255,255,255,0.1)
+                );
+            border-radius: inherit;
+            pointer-events: none;
+        }
+        .frutiger-aero-button {
+            isolation: isolate;
+        }
+        .frutiger-aero-button:hover {
+            box-shadow:
+                0 6px 8px rgba(0,0,0,0.4),
+                0 0 10px rgba(100,220,255,0.45),
+                inset 0 1px 1px rgba(255,255,255,0.9);
+            transform: translateY(-1px);
+            filter: brightness(1.08);
+        }
+        .frutiger-aero-button:active {
+            box-shadow:
+                0 2px 4px rgba(0,0,0,0.4),
+                inset 0 2px 4px rgba(0,0,0,0.2);
+            transform: translateY(1px);
+        }
+        .frutiger-aero-button.medium {
+            padding: 0.55em 1.4em;
+            font-size: 12px;
+        }
+        .appearance-btn[data-mode="light"] {
+            --hue: 140;
+        }
+        .appearance-btn[data-mode="dark"] {
+            --hue: 210;
+        }
+        .appearance-btn.active {
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,0.9),
+                0 4px 8px rgba(0,0,0,0.35),
+                0 0 10px rgba(100,220,255,0.5);
+            filter: brightness(1.08);
+        }
+        .appearance-btn.active::after {
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(255,255,255,0.9),
+                    rgba(255,255,255,0.15)
+                );
+        }
         .aero-body h2 {
     margin: 0 0 4px 0;
 }
-
 .aero-body p {
     margin: 0 0 5px 0;
 }
-
 .aero-field {
     display: flex;
     align-items: center;
     margin: 2px 0;
 }
-
 .aero-field label {
     width: 110px;
 }
-
 .aero-field input,
 .aero-field select {
     margin: 0;
     padding: 3px 5px;
     box-sizing: border-box;
 }
-
 .aero-continue {
     margin-top: 8px;
 }
@@ -316,12 +478,39 @@
         canvas{
             display:block;
         }
+        #aeroUsername {
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 9999px;
+            border: 1px solid var(--bg);
+
+            outline: none;
+            cursor: url("./cursors/roundytext.cur"), text;
+            user-select: text;
+            -webkit-user-select: text;
+            appearance: none;
+            -webkit-appearance: none;
+            font-family: "Lucida Grande", "Lucida Sans Unicode",
+                        "Segoe UI", system-ui, sans-serif;
+        }
+        #aeroUsername::placeholder {
+            color: rgba(20, 40, 20, 0.65);
+            opacity: 1;
+        }
+        #aeroUsername:focus {
+            outline: none;
+            box-shadow:
+                0 6px 8px rgba(0, 0, 0, 0.4),
+                0 0 0 2px rgba(255, 255, 255, 0.7),
+                0 0 12px rgba(100, 220, 255, 0.7);
+            transform: translateY(-1px);
+        }
       </style>
     </head>
     <body>
         <canvas id="canvas"></canvas>
         <div class="aero-window" id="setupWindow">
-        <div class="aero-titlebar">
+        <div class="aero-titlebar" id="setupTitlebar">
         <img class="aero-titlebar-icon" src="dialogboxicon.png">
         <div class="aero-titlebar-text">aerOS Setup</div>
         <div class="aero-caption">
@@ -337,29 +526,29 @@
 
     <div class="aero-field">
         <label>User name</label>
-        <input id="username" type="text" placeholder="Enter your name">
+        <input id="username" type="text" class="frutiger-aero-button small" placeholder="Enter your name">
     </div>
 
     <div class="aero-field">
         <label>Date of birth</label>
-        <input id="dob" type="date">
+        <input id="dob" type="date" class="frutiger-aero-button samll aero-input">
     </div>
         <div class="aero-field">
         <label>Appearance</label>
     <div class="button-group">
-        <button type="button" class="appearance-btn active" data-mode="light"> Light </button>
-        <button type="button" class="appearance-btn" data-mode="dark">Dark</button>
+        <button type="button" class="appearance-btn frutiger-aero-button small active" data-mode="light"> Light </button>
+        <button type="button" class="appearance-btn frutiger-aero-button small " data-mode="dark">Dark</button>
     </div>
 </div>
     <div class="aero-field">
         <label>Clock format</label>
-        <select id="clockFormat">
+        <select id="clockFormat" class="frutiger-aero-button small aero-input">
             <option value="12">12-hour</option>
             <option value="24">24-hour</option>
         </select>
     </div>
 
-    <button class="aero-continue" id="continueBtn">Continue</button>
+    <button id="continueBtn" class="appearance-btn frutiger-aero-button small active">Continue</button>
 
 </div>
 
@@ -371,6 +560,30 @@
     <span class="aero-gripper"></span>
 </div>
             <style>
+                html,
+                body{
+                    cursor: url("./cursors/roundynormal.cur"), auto;
+                }
+                button,
+                a,
+                .appearance-btn{
+                    cursor: url("./cursors/roundyhand.cur"), pointer;
+                }
+                input,
+                textarea, select{
+                    cursor: url("./cursors/roundytext.cur"), text;
+                }
+                #aeroTitlebar,
+                #setupTitlebar {
+                    cursor: url("./cursors/roundmove.cur"), move !important;
+                    user-select: none;
+                }
+                #setupTitlebar:active{
+                    cursor: url("./cursors/roundygrab.cur"), moving !important
+                }
+                canvas {
+                    cursor: url("./cursors/roundynormal.cur"), auto;
+                }
                 #setupWindow{
                     display:none;
                     position: fixed;
@@ -394,6 +607,177 @@
                 }
                 .aero-window .aero-statusbar{
                     box-sizing: border-box;
+                }
+                .frutiger-aero-button {
+                --hue: 140;
+                --sat: 0.2;
+                --glow-intensity: 0.7;
+
+                --fg: oklch(15% calc(var(--sat) * 0.5) var(--hue));
+                --bg: oklch(75% var(--sat) var(--hue) / 0.8);
+                --bg-dark: oklch(45% var(--sat) var(--hue) / 0.75);
+
+                --bottom-glow: radial-gradient(
+                    farthest-corner at bottom center,
+                    rgba(255,255,255,var(--glow-intensity)),
+                    transparent
+                );
+
+                background-color: var(--bg);
+                background:
+                    var(--bottom-glow),
+                    linear-gradient(to bottom, var(--bg-dark), var(--bg));
+
+                border: 1px solid var(--bg);
+                border-radius: 9999px;
+
+                box-shadow: 0 4px 4px rgba(0,0,0,.4);
+
+                color: var(--fg);
+                font-family: "Lucida Grande", "Lucida Sans Unicode",
+                    "Segoe UI", system-ui, sans-serif;
+                font-weight: 700;
+                text-shadow: 0 2px .5em rgba(0,0,0,.2);
+
+                cursor: url("./cursors/roundyhand.cur"), pointer;
+                position: relative;
+                transition: all 300ms ease;
+
+                user-select: none;
+                -webkit-user-select: none;
+                }
+
+                .frutiger-aero-button::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+
+                background: linear-gradient(
+                    120deg,
+                    transparent 30%,
+                    rgba(255,255,255,.35) 45%,
+                    rgba(255,255,255,.05) 55%,
+                    transparent 70%
+                );
+
+                border-radius: inherit;
+                pointer-events: none;
+                }
+
+                .frutiger-aero-button::after {
+                content: "";
+                position: absolute;
+                top: 4%;
+                left: .75em;
+                width: calc(100% - 1.5em);
+                height: 40%;
+
+                background: linear-gradient(
+                    to bottom,
+                    rgba(255,255,255,.8),
+                    rgba(255,255,255,.1)
+                );
+
+                border-radius: inherit;
+                pointer-events: none;
+                }
+
+                .frutiger-aero-button:hover,
+                .frutiger-aero-button:focus {
+                box-shadow: 0 6px 8px rgba(0,0,0,.4);
+                transform: translateY(-1px);
+                }
+
+                .frutiger-aero-button:active {
+                box-shadow: 0 2px 4px rgba(0,0,0,.4);
+                transform: translateY(1px);
+                }
+
+                .frutiger-aero-button.small {
+                padding: .5em 1.5em;
+                font-size: .875rem;
+                }
+
+                .frutiger-aero-button.medium {
+                padding: .75em 2em;
+                font-size: 1rem;
+                }
+
+                .frutiger-aero-button.large {
+                padding: 1em 3em;
+                font-size: 1.125rem;
+                }
+
+                .aero-input,
+                .aero-select {
+                width: 230px;
+                box-sizing: border-box;
+                outline: none;
+                }
+
+                .aero-input {
+                cursor: url("./cursors/roundytext.cur"), text;
+                user-select: text;
+                -webkit-user-select: text;
+                }
+
+                .aero-input::placeholder {
+                color: rgba(20,40,20,.6);
+                opacity: 1;
+                }
+
+                .aero-input:focus,
+                .aero-select:focus {
+                outline: none;
+                box-shadow:
+                    0 6px 8px rgba(0,0,0,.4),
+                    0 0 0 2px rgba(255,255,255,.8),
+                    0 0 14px rgba(80,210,255,.8);
+
+                transform: translateY(-1px);
+                }
+
+                .aero-select {
+                cursor: url("./cursors/roundyhand.cur"), pointer;
+                user-select: none;
+                -webkit-user-select: none;
+                }
+
+                .button-group {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 8px;
+                }
+
+                .appearance-btn {
+                min-width: 85px;
+                text-align: center;
+                }
+
+                .appearance-btn.active {
+                box-shadow:
+                    0 2px 4px rgba(0,0,0,.35),
+                    inset 0 0 0 1px rgba(255,255,255,.8),
+                    0 0 8px rgba(100,220,255,.6);
+
+                transform: translateY(1px);
+                }
+
+                .aero-input,
+                .aero-select {
+                position: relative;
+                z-index: 1;
+                }
+
+                .frutiger-aero-button::before,
+                .frutiger-aero-button::after {
+                z-index: -1;
+                }
+
+                .frutiger-aero-button {
+                overflow: hidden;
+                isolation: isolate;
                 }
                 </style>
         <script>
@@ -590,6 +974,36 @@
     window.addEventListener("resize", () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+    });
+    const titlebar = document.getElementById("setupTitlebar");
+    let isDragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+    titlebar.addEventListener("mousedown", (e) => {
+        if (e.button !== 0) return;
+        isDragging = true;
+        const rect = setupWindow.getBoundingClientRect();
+        offsetX=e.clientX - rect.left;
+        offsetY=e.clientY-rect.top;
+        setupWindow.style.transform="none";
+        setupWindow.style.left=rect.left+"px";
+        setupWindow.style.top=rect.top+"px";
+        titlebar.style.cursor ='url("./cursor/roundmove.cur"), move';
+        e.preventDefault();
+        document.addEventListener("mousemove", (e)=> {
+            if(!isDragging) return;
+            setupWindow.style.left = (e.clientX - offsetX) + "px";
+            setupWindow.style.top = (e.clientY - offsetY) + "px";
+        });
+        document.addEventListener("mouseup", () => {
+            if (!isDragging) {
+                animationFrame = null;
+                isDragging = false;
+                return;
+            }
+            animationFrame = null;
+            isDragging = false;
+        });
     });
     </script>
     </body>
